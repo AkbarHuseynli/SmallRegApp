@@ -3,7 +3,7 @@ package entity;
 public enum Gender {
     Male("male"), Female("female");
 
-    private String desc;
+    private final String desc;
 
     Gender(String desc){
         this.desc = desc;
@@ -14,7 +14,5 @@ public enum Gender {
         return desc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+
 }
