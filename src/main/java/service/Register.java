@@ -2,10 +2,7 @@ package service;
 
 import dao.MenuService;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class Register extends MenuService {
@@ -13,11 +10,12 @@ public class Register extends MenuService {
     @Override
     public void process() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter person id");
+        System.out.println("Enter person id :");
         int person_id = sc.nextInt();
 
-        System.out.println("Enter username");
+        System.out.println("Enter username :");
         String user_name = sc.next();
+
         try (Connection c = connect()) {
             Statement stmt = connect().createStatement();
             stmt.execute("select name from user1");
@@ -26,15 +24,23 @@ public class Register extends MenuService {
 
             while (rs.next()) {
                 String name = rs.getString("name");
-                if (user_name == name) {
-                    System.out.println("------------------");
-//                    user_name = sc.next();
-                    throw new Exception("Username is already used! Please change it");
+                if (user_name.equalsIgnoreCase(name)) {
+                    System.err.println("This name is already used! Please change it");
+                    System.out.println("Enter username :");
+                    user_name = sc.next();
                 }
             }
-            System.out.println("Enter password");
-            String pass = sc.next();
 
+        }
+        catch (SQLException ex) {
+            System.out.println("CONNECTION PROBLEM");
+        }
+
+        System.out.println("Enter password");
+        String pass = sc.next();
+
+
+        try {
             PreparedStatement stmt2 = connect().prepareStatement("INSERT INTO\n" +
                     "user1(id, name, password)\n" +
                     "values (?,?,?)");
@@ -43,11 +49,9 @@ public class Register extends MenuService {
             stmt2.setString(3, pass);
             stmt2.execute();
             System.out.println("User is registered successfully!");
-
-        } catch (Exception ex) {
-            System.out.println("Error occured during registering!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
 
     }
 }

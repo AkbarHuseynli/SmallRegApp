@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class MenuUtil {
     public static void showMenu(){
+        System.out.println("");
         Arrays.stream(Menu.values()).toList().forEach(System.out::println);
         Scanner sc = new Scanner(System.in);
         System.out.println("\nSelect the service: ");
@@ -20,7 +21,7 @@ public class MenuUtil {
                 Menu.Show.process();
                 break;
             case 4:
-                MenuUtil.exit();
+                Menu.Exit.process();
                 break;
             default:
                 new Exception("Selected index is not valid");
@@ -28,9 +29,7 @@ public class MenuUtil {
         }
 
     }
-    public static void exit() {
-            System.exit(0);
-    }
+
 
 
 
