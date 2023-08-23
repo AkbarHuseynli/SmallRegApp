@@ -1,14 +1,13 @@
 package service;
 
-import dao.MenuService;
+import dao.UserDao;
 
 import java.sql.*;
 import java.util.Scanner;
 
-public class Register extends MenuService {
-
+public class UserDaoImpl extends UserDao {
     @Override
-    public void process() {
+    public void addUser() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter person id :");
         int person_id = sc.nextInt();
@@ -33,7 +32,6 @@ public class Register extends MenuService {
 
         }
         catch (SQLException ex) {
-            System.out.println("CONNECTION PROBLEM");
         }
 
         System.out.println("Enter password");
@@ -52,6 +50,5 @@ public class Register extends MenuService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

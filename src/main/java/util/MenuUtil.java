@@ -1,5 +1,8 @@
 package util;
 
+import service.PersonDaoImpl;
+import service.UserDaoImpl;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -12,16 +15,17 @@ public class MenuUtil {
         int index = sc.nextInt();
         switch (index){
             case 1:
-                Menu.Save.process();
+                new PersonDaoImpl().addPerson();
                 break;
             case 2:
-                Menu.Register.process();
+                new UserDaoImpl().addUser();
                 break;
             case 3:
-                Menu.Show.process();
+                new PersonDaoImpl().showAll();
                 break;
             case 4:
-                Menu.Exit.process();
+                System.out.println("APP is shut down!");
+                System.exit(0);
                 break;
             default:
                 new Exception("Selected index is not valid");
